@@ -22,7 +22,7 @@ public class Sql2oSchoolDaoTest {
     @Before
     public  void setUp() throws Exception {
         String connectionString = "jdbc:postgresql://localhost:5432/education_test"; //connect to postgres test database
-        Sql2o sql2o = new Sql2o(connectionString, "moringa", "://postgres");
+        Sql2o sql2o = new Sql2o(connectionString, "moringa", "Georgedatabase1");
 
 //        String connectionString = "jdbc:postgresql://ec2-54-90-68-208.compute-1.amazonaws.com:5432/d3prpp5l3ugu23 "; //!
 //        Sql2o sql2o = new Sql2o(connectionString, "fzcpvwmacnmgzn", "f8b6da8439fce09b61063f1c4856d2b191217799d97e4c506bddf5f7fc97f401");

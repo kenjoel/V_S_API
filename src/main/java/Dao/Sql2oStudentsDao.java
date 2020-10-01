@@ -55,18 +55,14 @@ public class Sql2oStudentsDao implements StudentsDao{
         }
     }
 
-    @Override
-    public List<Schools> getAllSchoolsForAStudent(int id) {
-        return null;
-    }
 
 
     @Override
-    public Students findByName(String studentsname) {
-        String sql = "SELECT * FROM students WHERE studentsname = :studentsname";
+    public Students findById(int Id) {
+        String sql = "SELECT * FROM students WHERE id = :id";
         try(Connection conn = sql2o.open()){
             return conn.createQuery(sql)
-                    .addParameter("studentsname", studentsname)
+                    .addParameter("id", Id)
                     .executeAndFetchFirst(Students.class);
         }
     }
