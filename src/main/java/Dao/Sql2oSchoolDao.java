@@ -65,8 +65,8 @@ public class Sql2oSchoolDao implements SchoolDao {
                                 .addParameter("id", bam)
                                 .executeAndFetchFirst   (Educators.class));
             }
-        } catch (Sql2oException ex){
-            System.out.println(ex);
+        } catch (Sql2oException xe){
+            System.out.println(xe);
         }
         return educators;
     }
