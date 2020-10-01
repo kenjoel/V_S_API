@@ -62,7 +62,7 @@ public class Sql2oEducatorsDaoTest {
         educatorsDao.addEducatorsToSchool(schools, educators);
 
         List<Educators> ed = educatorsDao.getAllEducatorsBySchool(schools.getId());
-        assertTrue(schools.getId() == educatorsDao.getAllEducatorsBySchool(schools.getId()).size());
+        assertEquals(1, ed.size());
 
     }
 
