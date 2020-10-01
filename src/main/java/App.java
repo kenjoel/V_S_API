@@ -1,7 +1,9 @@
+import Dao.Sql2oEducatorsDao;
 import Dao.Sql2oSchoolDao;
 import Dao.Sql2oStudentsDao;
 import com.google.gson.Gson;
 import exceptions.ApiExceptions;
+import models.Educators;
 import models.Schools;
 import models.Students;
 import org.sql2o.Connection;
@@ -19,12 +21,14 @@ public class App {
         Gson gson = new Gson();
         Sql2oStudentsDao studentsDao;
         Sql2oSchoolDao schoolDao;
+        Sql2oEducatorsDao educatorsDao;
 
         String connectionString = "jdbc:postgresql://localhost:5432/education";
         Sql2o sql2o = new Sql2o(connectionString, "moringa", "Georgedatabase1");
 
         studentsDao = new Sql2oStudentsDao(sql2o);
         schoolDao = new Sql2oSchoolDao(sql2o);
+        educatorsDao = new Sql2oEducatorsDao(sql2o);
         conn = sql2o.open();
 
         get("/schools", "application/json", (request, response) -> {
@@ -35,6 +39,7 @@ public class App {
         get("/students", "application/json", (request, response) -> {
             return gson.toJson(studentsDao.getAll());
         });
+
 
         get("/schools/:id", "application/json", (request, response) -> { //accept a request in format JSON from an app
             int schoolsId = Integer.parseInt(request.params("id"));
@@ -72,6 +77,25 @@ public class App {
 
         //Start of post methods
 
+        post("/schools/:schoolsId/students/:studentsId", "application/json", (request, response) -> {
+
+            int schoolsId = Integer.parseInt(request.params("schoolsId"));
+            int studentsId = Integer.parseInt(request.params("studentsId"));
+            Schools schools = schoolDao.findSchoolById(schoolsId);
+            Students students = studentsDao.findById(studentsId);
+
+
+            if (schools != null && students != null){
+                //both exist and can be associated
+                studentsDao.addStudentsToSchool(students, schools);
+                response.status(201);
+                return gson.toJson(String.format("School '%s' and Student '%s' are related",schools.getSchoolName(), students.getStudentname()));
+            }
+            else {
+                throw new ApiExceptions(404, String.format("School or Student does not exist"));
+            }
+        });
+
         post("/schools/new", "application/json", (request, response)->{
             Schools schools = gson.fromJson(request.body(), Schools.class);
             schoolDao.add(schools);
@@ -85,6 +109,17 @@ public class App {
             response.status(201);
             return gson.toJson(students);
         });
+
+        post("/educators/new", "application/json", (request, response) -> {
+            Educators educators = gson.fromJson(request.body(), Educators.class);
+            educatorsDao.add(educators);
+            response.status(201);
+            return gson.toJson(educators);
+        });
+
+
+
+
 
 
 
