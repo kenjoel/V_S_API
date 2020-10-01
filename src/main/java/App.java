@@ -41,6 +41,15 @@ public class App {
         });
 
 
+        get("/educators/:id", "application/json", (request, response) -> { //accept a request in format JSON from an app
+            int educatorsId = Integer.parseInt(request.params("id"));
+
+            if (educatorsDao.getEducatorsById(educatorsId) == null){
+                throw new ApiExceptions(404, String.format("No Educators found: \"%s\" exists", request.params("id")));
+            }
+            return gson.toJson(educatorsDao.getEducatorsById(educatorsId));
+        });
+
         get("/schools/:id", "application/json", (request, response) -> { //accept a request in format JSON from an app
             int schoolsId = Integer.parseInt(request.params("id"));
 
