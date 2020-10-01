@@ -13,11 +13,12 @@ import static org.junit.Assert.*;
 public class Sql2oStudentsDaoTest {
     private Connection conn;
     private StudentsDao studentsDao;
+    private SchoolDao schoolDao;
 
 
     @Before
     public void setUp() throws Exception {
-        String connectionString = "jdbc:postgresql://localhost:5432/newsportal_test"; //connect to postgres test database
+        String connectionString = "jdbc:postgresql://localhost:5432/education_test"; //connect to postgres test database
         Sql2o sql2o = new Sql2o(connectionString,"moringa",":Georgedatabase1");
         studentsDao = new Sql2oStudentsDao(sql2o);
         conn = sql2o.open();
@@ -41,7 +42,7 @@ public class Sql2oStudentsDaoTest {
     public void addingToSchoolAddsCorrectly() {
         Schools testSchools = setupSchool();
 
-        schoolsDao.add(testSchools);
+        schoolDao.add(testSchools);
 
         Students testStudents = setupNewStudents();
 

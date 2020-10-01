@@ -55,6 +55,11 @@ public class Sql2oStudentsDao implements StudentsDao{
         }
     }
 
+    @Override
+    public List<Schools> getAllSchoolsForAStudent(int id) {
+        return null;
+    }
+
 
     @Override
     public Students findByName(String studentsname) {
