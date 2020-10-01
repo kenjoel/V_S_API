@@ -23,7 +23,11 @@ public class Sql2oSchoolDao implements SchoolDao {
         String sql = "INSERT INTO schools (schoolname, schooladdress, schoolwebsite,  schoolemail, schoolphone) VALUES (:schoolname, :schooladdress, :schoolwebsite, :schoolemail, :schoolphone)";
         try (Connection con = sql2o.open()) {
             int id = (int) con.createQuery(sql, true)
-                    .bind(schools)
+                    .addParameter("schoolname", schools.getSchoolName())
+                    .addParameter("schooladdress", schools.getSchoolAddress())
+                    .addParameter("schoolwebsite", schools.getSchoolWebsite())
+                    .addParameter("schoolemail", schools.getSchoolEmail())
+                    .addParameter("schoolphone",schools.getSchoolPhoneNumber())
                     .executeUpdate()
                     .getKey();
             schools.setId(id);
