@@ -109,4 +109,6 @@ public class Sql2oSchoolDaoTest {
 
         assertTrue(schoolsDao.getAllStudentsBySchool(schools.getId()).contains(students));
     }
+
+
 }
