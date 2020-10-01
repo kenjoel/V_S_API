@@ -31,6 +31,11 @@ public class App {
         educatorsDao = new Sql2oEducatorsDao(sql2o);
         conn = sql2o.open();
 
+        get("/", "application/json", (req, res) ->
+                "{\"Ola!\":\"Hello Welcome to News-Portal-Api(NPA). Feel free to explore the different routes, check readme :)\"}");
+
+
+
         get("/schools", "application/json", (request, response) -> {
             return gson.toJson(schoolDao.getAll());
         });

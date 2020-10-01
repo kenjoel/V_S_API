@@ -22,7 +22,7 @@ public class Sql2oEducatorsDaoTest {
     @Before
     public void setUp() throws Exception {
         String connectionString = "jdbc:postgresql://localhost:5432/education_test"; //connect to postgres test database
-        Sql2o sql2o = new Sql2o(connectionString, "moringa", "Georgedatabase1");
+        Sql2o sql2o = new Sql2o(connectionString, "moringa", "://postgres");
         studentsDao = new Sql2oStudentsDao(sql2o);
         schoolDao = new Sql2oSchoolDao(sql2o);
         educatorsDao = new Sql2oEducatorsDao(sql2o);
@@ -52,4 +52,19 @@ public class Sql2oEducatorsDaoTest {
         assertEquals(educators1.getId(), educators.getId());
     }
 
+
+    @Test
+    public void gettingEducatorsWorks(){
+        Schools schools = new Schools("Agha Khan","1001","agahaan.website.com","jssk@gmail.com","07219277282");
+        schoolDao.add(schools);
+        Educators educators = new Educators("Catherine", "071992783","catherina@mail.com", "Mathematics");
+        educatorsDao.add(educators);
+
+        educatorsDao.addEducatorsToSchool(schools, educators);
+
+        List<Educators> ed = schoolDao.getAllEducatorsBySchool(schools.getId());
+
+        assertEquals(1, ed.size());
+
+    }
 }
