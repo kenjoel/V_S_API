@@ -24,7 +24,7 @@ public class App {
         Sql2oEducatorsDao educatorsDao;
 
         String connectionString = "jdbc:postgresql://localhost:5432/education";
-        Sql2o sql2o = new Sql2o(connectionString, "moringa", "Georgedatabase1");
+        Sql2o sql2o = new Sql2o(connectionString, "moringa", "://postgres");
 
         studentsDao = new Sql2oStudentsDao(sql2o);
         schoolDao = new Sql2oSchoolDao(sql2o);
@@ -125,6 +125,26 @@ public class App {
             educatorsDao.add(educators);
             response.status(201);
             return gson.toJson(educators);
+        });
+
+
+        post("/schools/:schoolsid/educators/:educatorsid", "application/json", (request, response) -> {
+
+            int schoolsId = Integer.parseInt(request.params("schoolid"));
+            int educatorsId = Integer.parseInt(request.params("educatorsid"));
+            Schools schools = schoolDao.findSchoolById(schoolsId);
+            Educators educators1 = educatorsDao.getEducatorsById(educatorsId);
+
+
+            if (schools != null && educators1 != null){
+                //both exist and can be associated
+                educatorsDao.addEducatorsToSchool(schools, educators1);
+                response.status(201);
+                return gson.toJson(String.format("School '%s' and Student '%s' are related",schools.getSchoolName(), educators1.getName()));
+            }
+            else {
+                throw new ApiExceptions(404, String.format("School or Student does not exist"));
+            }
         });
 
 

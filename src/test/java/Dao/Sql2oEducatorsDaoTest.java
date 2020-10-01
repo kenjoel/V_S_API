@@ -52,6 +52,4 @@ public class Sql2oEducatorsDaoTest {
         assertEquals(educators1.getId(), educators.getId());
     }
 
-
-
 }
