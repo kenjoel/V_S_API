@@ -24,7 +24,7 @@ public class App {
         Sql2oEducatorsDao educatorsDao;
 
         String connectionString = "jdbc:postgresql://localhost:5432/education";
-        Sql2o sql2o = new Sql2o(connectionString, "moringa", "://postgres");
+        Sql2o sql2o = new Sql2o(connectionString, "moringa", "Georgedatabase1");
 
         studentsDao = new Sql2oStudentsDao(sql2o);
         schoolDao = new Sql2oSchoolDao(sql2o);
@@ -54,7 +54,7 @@ public class App {
             int schoolsId = Integer.parseInt(request.params("id"));
 
             if (schoolDao.findSchoolById(schoolsId) == null){
-                throw new ApiExceptions(404, String.format("No Schools found: \"%s\" exists", request.params("id")));
+                throw new ApiExceptions(404, String.format("No Schools found: \"%s\" does not exists", request.params("id")));
             }
             return gson.toJson(schoolDao.findSchoolById(schoolsId));
         });
@@ -79,6 +79,20 @@ public class App {
             }
             else {
                 return gson.toJson(schoolDao.getAllStudentsBySchool(schoolsId));
+            }
+        });
+
+        get("/schools/:id/educators", "application/json", (request, response) -> {
+            int schoolsId = Integer.parseInt(request.params("id"));
+            Schools schoolToFind = schoolDao.findSchoolById(schoolsId);
+            if (schoolToFind == null){
+                throw new ApiExceptions(404, String.format("No school with the id: \"%s\" exists", request.params("id")));
+            }
+            else if (schoolDao.getAllEducatorsBySchool(schoolsId).size()==0){
+                return "{\"message\":\"I'm sorry, but no educators are listed for this school.\"}";
+            }
+            else {
+                return gson.toJson(schoolDao.getAllEducatorsBySchool(schoolsId));
             }
         });
 
