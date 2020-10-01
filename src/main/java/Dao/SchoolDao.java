@@ -17,7 +17,7 @@ public interface SchoolDao {
     List<Schools> getAll();
     List<Students> getAllStudentsBySchool(int id);
 
-    List<Educators> getAllEducatorsBySchool(int id);
+   // List<Educators> getAllEducatorsBySchool(int id);
 
     //update
     //void update(int id, String schoolName, String schoolAddress, String schoolWebsite, String schoolEmail, String phoneNumber);
