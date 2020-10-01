@@ -40,9 +40,6 @@ public class App {
             return gson.toJson(studentsDao.getAll());
         });
 
-//        get("/educators", "application/json", (request, response) -> {
-//            return gson.toJson(educatorsDao.getAllEducatorsBySchool(int id));
-//        });
 
         get("/schools/:id", "application/json", (request, response) -> { //accept a request in format JSON from an app
             int schoolsId = Integer.parseInt(request.params("id"));
