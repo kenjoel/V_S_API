@@ -1,5 +1,6 @@
 package Dao;
 
+import models.Educators;
 import models.Schools;
 import models.Students;
 import org.sql2o.Connection;
@@ -44,6 +45,30 @@ public class Sql2oSchoolDao implements SchoolDao {
             return con.createQuery("SELECT * FROM schools")
                     .executeAndFetch(Schools.class);
         }
+    }
+
+    @Override
+    public List<Educators> getAllEducatorsBySchool(int id){
+        ArrayList<Educators> educators = new ArrayList<>();
+
+        String joinQuery = "SELECT educatorid FROM school_educator WHERE schoolid = :schoolid";
+
+        try (Connection con = sql2o.open()) {
+            List<Integer> allIds = con.createQuery(joinQuery)
+                    .addParameter("schoolid", id)
+                    .executeAndFetch(Integer.class);
+            System.out.println("got the ids");
+            for (Integer bam : allIds){
+                String educatorsid = "SELECT * FROM educators WHERE id = :id";
+                educators.add(
+                        con.createQuery(educatorsid)
+                                .addParameter("id", bam)
+                                .executeAndFetchFirst   (Educators.class));
+            }
+        } catch (Sql2oException ex){
+            System.out.println(ex);
+        }
+        return educators;
     }
 
 
