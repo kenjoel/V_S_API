@@ -124,6 +124,25 @@ public class App {
             }
         });
 
+        post("/schools/:schoolsid/educators/:educatorsid", "application/json", (request, response) -> {
+
+            int schoolsId = Integer.parseInt(request.params("schoolsid"));
+            int educatorsId = Integer.parseInt(request.params("educatorsid"));
+            Schools schools = schoolDao.findSchoolById(schoolsId);
+            Educators educators = educatorsDao.getEducatorsById(educatorsId);
+
+
+            if (schools != null && educators != null){
+                //both exist and can be associated
+                educatorsDao.addEducatorsToSchool(educators, schools);
+                response.status(201);
+                return gson.toJson(String.format("School '%s' and Student '%s' are related",schools.getSchoolName(), educators.getName()));
+            }
+            else {
+                throw new ApiExceptions(404, String.format("School or Student does not exist"));
+            }
+        });
+
         post("/schools/new", "application/json", (request, response)->{
             Schools schools = gson.fromJson(request.body(), Schools.class);
             schoolDao.add(schools);
@@ -146,24 +165,7 @@ public class App {
         });
 
 
-        post("/schools/:schoolsid/educators/:educatorsid", "application/json", (request, response) -> {
 
-            int schoolsId = Integer.parseInt(request.params("schoolid"));
-            int educatorsId = Integer.parseInt(request.params("educatorsid"));
-            Schools schools = schoolDao.findSchoolById(schoolsId);
-            Educators educators1 = educatorsDao.getEducatorsById(educatorsId);
-
-
-            if (schools != null && educators1 != null){
-                //both exist and can be associated
-                educatorsDao.addEducatorsToSchool(schools, educators1);
-                response.status(201);
-                return gson.toJson(String.format("School '%s' and Student '%s' are related",schools.getSchoolName(), educators1.getName()));
-            }
-            else {
-                throw new ApiExceptions(404, String.format("School or Student does not exist"));
-            }
-        });
 
 
 

@@ -34,7 +34,7 @@ public class Sql2oEducatorsDao implements EducatorsDao {
     }
 
     @Override
-    public void addEducatorsToSchool(Schools schools, Educators ed){
+    public void addEducatorsToSchool(Educators ed, Schools schools){
         String sql = "INSERT INTO school_educator(educatorid, schoolid) VALUES (:educatorid, :schoolid);";
         try(Connection connection = sql2o.open()){
             connection.createQuery(sql)

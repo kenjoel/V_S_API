@@ -8,7 +8,7 @@ import java.util.List;
 public interface EducatorsDao {
     //create
     void add(Educators educators);
-    void addEducatorsToSchool(Schools schools, Educators ed);
+    void addEducatorsToSchool(Educators ed, Schools schools);
 
     //    //read
     Educators getEducatorsById(int id);
