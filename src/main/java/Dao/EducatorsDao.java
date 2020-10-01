@@ -11,7 +11,6 @@ public interface EducatorsDao {
     void addEducatorsToSchool(Schools schools, Educators ed);
 
     //    //read
-    List<Educators> getAllEducatorsBySchool(int id);
     Educators getEducatorsById(int id);
     //
 //    //Delete

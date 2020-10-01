@@ -1,5 +1,6 @@
 package Dao;
 
+import models.Educators;
 import models.Schools;
 import models.Students;
 
@@ -15,6 +16,8 @@ public interface SchoolDao {
     Schools findSchoolById(int schoolId);
     List<Schools> getAll();
     List<Students> getAllStudentsBySchool(int id);
+
+    List<Educators> getAllEducatorsBySchool(int id);
 
     //update
     //void update(int id, String schoolName, String schoolAddress, String schoolWebsite, String schoolEmail, String phoneNumber);

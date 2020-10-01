@@ -52,18 +52,6 @@ public class Sql2oEducatorsDaoTest {
         assertEquals(educators1.getId(), educators.getId());
     }
 
-    @Test
-    public void addEducatorToSchool(){
-        Schools schools = new Schools("Agha Khan","1001","agahaan.website.com","jssk@gmail.com","07219277282");
-        schoolDao.add(schools);
-        Educators educators = new Educators("bahali yake","0872776242","bahaliyake@gmail.com","beauty");
-        educatorsDao.add(educators);
 
-        educatorsDao.addEducatorsToSchool(schools, educators);
-
-        List<Educators> ed = educatorsDao.getAllEducatorsBySchool(schools.getId());
-        assertTrue(schools.getId() == educatorsDao.getAllEducatorsBySchool(schools.getId()).size());
-
-    }
 
 }

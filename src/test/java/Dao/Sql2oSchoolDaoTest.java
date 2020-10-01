@@ -1,5 +1,6 @@
 package Dao;
 
+import models.Educators;
 import models.Schools;
 import models.Students;
 import org.junit.After;
@@ -17,6 +18,7 @@ public class Sql2oSchoolDaoTest {
 
     private static Sql2oSchoolDao schoolsDao;
     private static Sql2oStudentsDao studentsDao;
+    private  static Sql2oEducatorsDao educatorsDao;
     private static Connection conn;
 
     @Before
@@ -28,6 +30,8 @@ public class Sql2oSchoolDaoTest {
 //        Sql2o sql2o = new Sql2o(connectionString, "fzcpvwmacnmgzn", "f8b6da8439fce09b61063f1c4856d2b191217799d97e4c506bddf5f7fc97f401");
         schoolsDao = new Sql2oSchoolDao(sql2o);
         studentsDao = new Sql2oStudentsDao(sql2o);
+        educatorsDao = new Sql2oEducatorsDao(sql2o);
+
         conn = sql2o.open();
         schoolsDao.clearAll();
     }
@@ -54,6 +58,19 @@ public class Sql2oSchoolDaoTest {
 
         assertEquals( aid.getId(), schools.getId());
     }
+
+//    @Test
+//    public void addEducatorToSchool(){
+//        Schools schools = new Schools("Agha Khan","1001","agahaan.website.com","jssk@gmail.com","07219277282");
+//        schoolsDao.add(schools);
+//        Educators educators = new Educators("bahali yake","0872776242","bahaliyake@gmail.com","beauty");
+//        educatorsDao.add(educators);
+//
+//        educatorsDao.addEducatorsToSchool(schools, educators);
+//
+//        List<Educators> ed = schoolsDao.getAllEducatorsBySchool(schools.getId());
+//       // assertTrue(schools.getId() == schoolsDao.getAllEducatorsBySchool(schools.getId()).size());
+//    }
 
     @Test
     public void takeStudenToSchool(){
