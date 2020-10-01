@@ -53,5 +53,12 @@ public class Sql2oEducatorsDaoTest {
     }
 
 
+<<<<<<< HEAD
+=======
+        List<Educators> ed = educatorsDao.getAllEducatorsBySchool(schools.getId());
+        assertEquals(1, ed.size());
+
+    }
+>>>>>>> master
 
 }
