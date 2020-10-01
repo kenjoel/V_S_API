@@ -34,11 +34,11 @@ public class Sql2oStudentsDao implements StudentsDao{
 
     @Override
     public void addStudentsToSchool(Students students, Schools schools) {
-        String sql = "INSERT INTO school_student (studentsid, studentsid) VALUES (:schoolsid, :schoolsid)";
+        String sql = "INSERT INTO school_student (studentid, schoolid) VALUES (:studentid, :schoolid)";
         try (Connection con = sql2o.open()) {
             con.createQuery(sql)
-                    .addParameter("schoolsid", schools.getId())
-                    .addParameter("studentsid", students.getId())
+                    .addParameter("studentid", students.getId())
+                    .addParameter("schoolid", schools.getId())
                     .executeUpdate();
         } catch (Sql2oException ex){
             System.out.println(ex);

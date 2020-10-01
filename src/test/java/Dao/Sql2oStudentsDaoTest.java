@@ -21,6 +21,7 @@ public class Sql2oStudentsDaoTest {
         String connectionString = "jdbc:postgresql://localhost:5432/education_test"; //connect to postgres test database
         Sql2o sql2o = new Sql2o(connectionString, "moringa", "Georgedatabase1");
         studentsDao = new Sql2oStudentsDao(sql2o);
+        schoolDao = new Sql2oSchoolDao(sql2o);
         conn = sql2o.open();
         studentsDao.clearAll();
     }

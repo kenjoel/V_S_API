@@ -27,8 +27,14 @@ CREATE TABLE educators (
 
 CREATE TABLE school_student (
  id SERIAL PRIMARY KEY,
- studentsid INTEGER,
- schoolsid INTEGER
+ studentid INTEGER,
+ schoolid INTEGER
+);
+
+CREATE TABLE school_educator (
+id SERIAL PRIMARY KEY,
+educatorid VARCHAR,
+schoolid VARCHAR
 );
 
 CREATE DATABASE education_test WITH TEMPLATE education;
