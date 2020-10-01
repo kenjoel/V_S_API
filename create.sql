@@ -33,8 +33,8 @@ CREATE TABLE school_student (
 
 CREATE TABLE school_educator (
 id SERIAL PRIMARY KEY,
-educatorid VARCHAR,
-schoolid VARCHAR
+educatorid int,
+schoolid int
 );
 
 CREATE DATABASE education_test WITH TEMPLATE education;
