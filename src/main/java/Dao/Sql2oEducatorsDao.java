@@ -22,7 +22,11 @@ public class Sql2oEducatorsDao implements EducatorsDao {
         String sql = "INSERT INTO educators (educatorsname, educatorsphone, educatorsemail, educatorscourse) VALUES (:educatorsname, :educatorsphone, :educatorsemail,:educatorscourse)";
         try(Connection connection = sql2o.open()){
             int id = (int) connection.createQuery(sql, true)
-                    .bind(educators)
+                    .addParameter("educatorsname", educators.getName())
+                    .addParameter("educatorsphone", educators.getPhone())
+                    .addParameter("educatorsemail", educators.getEmail())
+                    .addParameter("educatorsemail", educators.getEmail())
+                    .addParameter("educatorscourse", educators.getCourse())
                     .executeUpdate()
                     .getKey();
             educators.setId(id);
@@ -50,12 +54,13 @@ public class Sql2oEducatorsDao implements EducatorsDao {
             List<Integer> allIds = con.createQuery(joinQuery)
                     .addParameter("schoolid", id)
                     .executeAndFetch(Integer.class);
+            System.out.println("got the ids");
             for (Integer bam : allIds){
                 String educatorsid = "SELECT * FROM educators WHERE id = :id";
                 educators.add(
                         con.createQuery(educatorsid)
                                 .addParameter("id", bam)
-                                .executeAndFetchFirst(Educators.class));
+                                .executeAndFetchFirst   (Educators.class));
             }
         } catch (Sql2oException ex){
             System.out.println(ex);
