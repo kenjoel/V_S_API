@@ -10,9 +10,8 @@ public interface StudentsDao {
     void addStudentsToSchool(Students students, Schools schools);
 
     List<Students> getAll();
-    List<Schools> getAllSchoolsForAStudent(int id);
 
-    Students findByName(String studentsname);
+    Students findById(int Id);
     void clearAll();
 
 }
