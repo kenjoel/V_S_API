@@ -1,8 +1,8 @@
 CREATE DATABASE education;
 \c education;
 CREATE TABLE schools (
- id SERIAL PRIMARY KEY
- schoolname  VARCHAR,
+ id SERIAL PRIMARY KEY,
+ schoolname VARCHAR,
  schooladdress VARCHAR,
  schoolwebsite VARCHAR,
  schoolemail VARCHAR,
